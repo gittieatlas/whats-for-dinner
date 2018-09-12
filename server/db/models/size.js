@@ -7,7 +7,7 @@ const Size = db.define('size', {
     allowNull: false
   },
   size: {
-    type: Sequelize.ENUM(2, 4, 6),
+    type: Sequelize.ENUM('2', '4', '6'),
     allowNull: false
   }
 })
