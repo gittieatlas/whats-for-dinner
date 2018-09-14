@@ -12,6 +12,7 @@ export const fetchMeals = () => async dispatch => {
     const res = await axios.get('/api/meals')
     dispatch(init(res.data))
   } catch (err) {
+    // OB: consider reporting error to user, maybe use a "toast notification", or a "snackbar" https://material-ui.com/demos/snackbars/, it's not the best error handling, but it's WAY better than nothing
     console.error('Fetching meals unsuccessful', err)
   }
 }

@@ -20,7 +20,7 @@ class MealList extends Component {
         >
           All Meals
         </Typography>
-
+        {/* OB: another magic number could be named */}
         <Grid container spacing={40}>
           {this.props.meals.map(meal => <MealItem meal={meal} key={meal.id} />)}
         </Grid>

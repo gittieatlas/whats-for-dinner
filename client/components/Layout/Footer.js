@@ -26,6 +26,7 @@ const footerData = [
           const mailToLink = 'mailto:hello@whatsfordinner.com'
           window.location = mailToLink
         }
+        // OB: consider also defining and passing an `href` (e.g. for the mailto above)
       },
       {text: 'questions'}
     ]
