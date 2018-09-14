@@ -8,6 +8,7 @@ import {CssBaseline} from '@material-ui/core'
 import {MuiThemeProvider, withStyles} from '@material-ui/core/styles'
 import {fetchMeals} from './store/meals'
 import globalStyles from './components/Utils/GlobalStyles.css'
+import {withRouter} from 'react-router-dom'
 
 class App extends Component {
   componentDidMount() {
@@ -15,6 +16,7 @@ class App extends Component {
   }
   render() {
     const {classes} = this.props
+    console.log('render')
     return (
       <MuiThemeProvider theme={MuiTheme}>
         <React.Fragment>
@@ -40,7 +42,9 @@ const mapDispatch = dispatch => ({
   }
 })
 
-export default withStyles(globalStyles)(connect(mapState, mapDispatch)(App))
+export default withStyles(globalStyles)(
+  withRouter(connect(mapState, mapDispatch)(App))
+)
 
 App.propTypes = {
   classes: PropTypes.object.isRequired
