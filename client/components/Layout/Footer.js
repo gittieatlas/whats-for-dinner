@@ -9,15 +9,33 @@ import globalStyles from '../Utils/GlobalStyles.css'
 const footerData = [
   {
     title: 'Quick Links',
-    description: ['all meals', 'about', 'contact us', 'questions']
+    description: [
+      {text: 'all meals'},
+      {text: 'about'},
+      {text: 'contact us'},
+      {
+        text: 'questions',
+        onClick: e => {
+          e.preventDefault()
+          const mailToLink = 'mailto:hello@whatsfordinner.com'
+          window.location = mailToLink
+        }
+      }
+    ]
   },
   {
     title: 'shop by meal type',
-    description: ['meat', 'chicken', 'fish', 'vegan', 'kids']
+    description: [
+      {text: 'meat'},
+      {text: 'chicken'},
+      {text: 'fish'},
+      {text: 'vegan'},
+      {text: 'kids'}
+    ]
   },
   {
     title: '--',
-    description: ['Privacy policy', 'Terms of use']
+    description: [{text: 'Privacy policy'}, {text: 'Terms of use'}]
   }
 ]
 
@@ -32,8 +50,13 @@ const Footer = ({classes}) => {
                 {footer.title}
               </Typography>
               {footer.description.map(item => (
-                <Typography key={item} variant="subheading" color="secondary">
-                  {item}
+                <Typography
+                  key={item.text}
+                  variant="subheading"
+                  color="secondary"
+                  onClick={item.onClick && item.onClick}
+                >
+                  {item.text}
                 </Typography>
               ))}
             </Grid>
