@@ -8,15 +8,19 @@ import {
   CardMedia,
   CardActionArea
 } from '@material-ui/core'
+import history from '../../history'
 
 import {withStyles} from '@material-ui/core/styles'
 import globalStyles from '../Utils/GlobalStyles.css'
 
 const MealItem = props => {
   const {meal, classes} = props
+  const handleClick = () => {
+    history.push(`/meals/${meal.id}`)
+  }
   return (
     <Grid item xs={12} sm={12} md={6}>
-      <Card>
+      <Card onClick={handleClick}>
         <CardActionArea>
           <CardMedia
             component="img"
