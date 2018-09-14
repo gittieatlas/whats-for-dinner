@@ -7,11 +7,13 @@ const INITIALIZE = 'INITIALIZE_MEALS'
 const init = meals => ({type: INITIALIZE, meals})
 
 // THUNK CREATORS
-export const fetchMeals = () => dispatch => {
-  axios
-    .get('/api/meals')
-    .then(res => dispatch(init(res.data)))
-    .catch(err => console.error('Fetching meals unsuccessful', err))
+export const fetchMeals = () => async dispatch => {
+  try {
+    const res = await axios.get('/api/meals')
+    dispatch(init(res.data))
+  } catch (err) {
+    console.error('Fetching meals unsuccessful', err)
+  }
 }
 
 // REDUCER
