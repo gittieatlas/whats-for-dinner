@@ -13,7 +13,7 @@ import styles from './Navbar.css'
 const Navbar = ({handleClick, isLoggedIn, classes}) => (
   <AppBar position="static" color="primary" className={classes.appBar}>
     <Toolbar>
-      <Link to="/home" className={classNames(classes.grow, classes.inlineFlex)}>
+      <Link to="/" className={classNames(classes.grow, classes.inlineFlex)}>
         <Fastfood color="secondary" className={classes.icon} />
         <Typography variant="title" color="secondary" noWrap>
           What's for Dinner
@@ -30,20 +30,35 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => (
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">
-            <Button
-              color="secondary"
-              variant="outlined"
-              className={classes.icon}
-            >
-              Login
-            </Button>
-          </Link>
-          <Link to="/signup">
-            <Button color="secondary" variant="outlined">
-              Sign Up
-            </Button>
-          </Link>
+
+          <Button
+            component={Link}
+            to="/cart"
+            color="secondary"
+            variant="outlined"
+            className={classes.icon}
+          >
+            View Cart
+          </Button>
+
+          <Button
+            component={Link}
+            to="/login"
+            color="secondary"
+            variant="outlined"
+            className={classes.icon}
+          >
+            Login
+          </Button>
+
+          <Button
+            component={Link}
+            to="/signup"
+            color="secondary"
+            variant="outlined"
+          >
+            Sign Up
+          </Button>
         </div>
       )}
     </Toolbar>
