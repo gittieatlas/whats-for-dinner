@@ -16,6 +16,7 @@ import globalStyles from '../Utils/GlobalStyles.css'
 const MealItem = props => {
   const {meal, classes} = props
   const handleClick = () => {
+    // OB: could probably be some kind of `<Link to={...} />` or an `href`
     history.push(`/meals/${meal.id}`)
   }
   return (

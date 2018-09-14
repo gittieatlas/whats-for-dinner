@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+// OB: consider more validations (not urgent)
 const Meal = db.define('meal', {
   name: {
     type: Sequelize.STRING,

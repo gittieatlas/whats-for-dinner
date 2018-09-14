@@ -17,6 +17,7 @@ describe('Meal routes', () => {
   })
 
   describe('/api/meals/', () => {
+    // OB: called a test fixture
     const mealObj = {
       name: 'Dijon Salmon',
       shortDescription: 'with roasted mushrooms shallots and arugula salad',
