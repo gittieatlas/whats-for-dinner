@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Grid, Typography} from '@material-ui/core'
+import history from '../../history'
 
 import {withStyles} from '@material-ui/core/styles'
 import styles from './Footer.css'
@@ -10,17 +11,23 @@ const footerData = [
   {
     title: 'Quick Links',
     description: [
-      {text: 'all meals'},
-      {text: 'about'},
-      {text: 'contact us'},
       {
-        text: 'questions',
+        text: 'all meals',
+        onClick: e => {
+          e.preventDefault()
+          history.push('meals')
+        }
+      },
+      {text: 'about'},
+      {
+        text: 'contact us',
         onClick: e => {
           e.preventDefault()
           const mailToLink = 'mailto:hello@whatsfordinner.com'
           window.location = mailToLink
         }
-      }
+      },
+      {text: 'questions'}
     ]
   },
   {
@@ -50,14 +57,15 @@ const Footer = ({classes}) => {
                 {footer.title}
               </Typography>
               {footer.description.map(item => (
-                <Typography
+                <a
                   key={item.text}
-                  variant="subheading"
-                  color="secondary"
                   onClick={item.onClick && item.onClick}
+                  className={classes.a}
                 >
-                  {item.text}
-                </Typography>
+                  <Typography variant="subheading" color="inherit">
+                    {item.text}
+                  </Typography>
+                </a>
               ))}
             </Grid>
           ))}
