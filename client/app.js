@@ -1,44 +1,47 @@
-import React from 'react'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
+import {Navbar, Footer} from './components'
+import Routes from './Routes'
+import MuiTheme from './components/MuiTheme'
+import {CssBaseline} from '@material-ui/core'
+import {MuiThemeProvider, withStyles} from '@material-ui/core/styles'
+import {fetchMeals} from './store/meals'
+import globalStyles from './components/Utils/GlobalStyles.css'
 
-import {Navbar} from './components'
-import Routes from './routes'
+class App extends Component {
+  componentDidMount() {
+    this.props.fetchInitialData()
+  }
+  render() {
+    const {classes} = this.props
+    return (
+      <MuiThemeProvider theme={MuiTheme}>
+        <React.Fragment>
+          <CssBaseline />
+          {/* <!-- start components --> */}
+          <Navbar />
+          <main className={classes.layout}>
+            <Routes />
+          </main>
+          <Footer />
+          {/* <!-- end components --> */}
+        </React.Fragment>
+      </MuiThemeProvider>
+    )
+  }
+}
 
-import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles'
+const mapState = null
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#FFBDB8',
-      main: '#ffcc9f',
-      dark: '#ED7100',
-      contrastText: '#000'
-    },
-    secondary: {
-      light: '#ECEFF1',
-      main: '#b0bec5',
-      dark: '#607D8B',
-      contrastText: '#000'
-    }
+const mapDispatch = dispatch => ({
+  fetchInitialData: () => {
+    dispatch(fetchMeals())
   }
 })
 
-const App = () => {
-  return (
-    <MuiThemeProvider theme={theme}>
-      <React.Fragment>
-        <CssBaseline />
-        <div>
-          <Navbar />
-          <Button variant="contained" color="primary">
-            Hello World
-          </Button>
-          <Routes />
-        </div>
-      </React.Fragment>
-    </MuiThemeProvider>
-  )
-}
+export default withStyles(globalStyles)(connect(mapState, mapDispatch)(App))
 
-export default App
+App.propTypes = {
+  classes: PropTypes.object.isRequired
+}
