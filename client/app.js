@@ -16,7 +16,6 @@ class App extends Component {
   }
   render() {
     const {classes} = this.props
-    console.log('render')
     return (
       <MuiThemeProvider theme={MuiTheme}>
         <React.Fragment>
