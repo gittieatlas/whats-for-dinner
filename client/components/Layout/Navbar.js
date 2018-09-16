@@ -9,6 +9,7 @@ import {logout} from '../../store'
 
 import {withStyles} from '@material-ui/core/styles'
 import styles from './Navbar.css'
+import globalStyles from '../Utils/GlobalStyles.css'
 
 const Navbar = ({handleClick, isLoggedIn, classes}) => (
   <AppBar position="static" color="primary" className={classes.appBar}>
@@ -79,7 +80,10 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default withStyles(styles)(connect(mapState, mapDispatch)(Navbar))
+export default withStyles(theme => ({
+  ...globalStyles(theme),
+  ...styles(theme)
+}))(connect(mapState, mapDispatch)(Navbar))
 
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
