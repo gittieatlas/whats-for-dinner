@@ -21,11 +21,7 @@ const footerData = [
       {text: 'about'},
       {
         text: 'contact us',
-        onClick: e => {
-          e.preventDefault()
-          const mailToLink = 'mailto:hello@whatsfordinner.com'
-          window.location = mailToLink
-        }
+        href: 'mailto:hello@whatsfordinner.com'
       },
       {text: 'questions'}
     ]
@@ -59,6 +55,7 @@ const Footer = ({classes}) => {
               {footer.description.map(item => (
                 <a
                   key={item.text}
+                  href={item.href && item.href}
                   onClick={item.onClick && item.onClick}
                   className={classes.a}
                 >
