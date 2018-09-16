@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 
 import {withStyles} from '@material-ui/core/styles'
-import styles from './Notifier.css.js'
+import styles from './Notifier.css'
 
 let openSnackbarFn
 
