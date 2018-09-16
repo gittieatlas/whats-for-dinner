@@ -4,13 +4,15 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import classNames from 'classnames'
 import {AppBar, Toolbar, Typography, Button} from '@material-ui/core'
+import Avatar from '@material-ui/core/Avatar'
 import {Fastfood} from '@material-ui/icons'
 import {logout} from '../../store'
 
 import {withStyles} from '@material-ui/core/styles'
 import styles from './Navbar.css'
+import globalStyles from '../Utils/GlobalStyles.css'
 
-const Navbar = ({handleClick, isLoggedIn, classes}) => (
+const Navbar = ({handleClick, isLoggedIn, classes, email}) => (
   <AppBar position="static" color="primary" className={classes.appBar}>
     <Toolbar>
       <Link to="/" className={classNames(classes.grow, classes.inlineFlex)}>
@@ -21,11 +23,15 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => (
       </Link>
 
       {isLoggedIn ? (
-        <div>
+        <div className={classNames(classes.row, classes.icon)}>
           {/* The navbar will show these links after you log in */}
+
           <Button onClick={handleClick} color="secondary" variant="outlined">
             Logout
           </Button>
+          <Avatar className={classes.iconLeft} component="button">
+            {email.charAt(0).toUpperCase()}
+          </Avatar>
         </div>
       ) : (
         <div>
@@ -67,7 +73,8 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => (
 
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    email: state.user.email
   }
 }
 
@@ -79,10 +86,14 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default withStyles(styles)(connect(mapState, mapDispatch)(Navbar))
+export default withStyles(theme => ({
+  ...globalStyles(theme),
+  ...styles(theme)
+}))(connect(mapState, mapDispatch)(Navbar))
 
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  email: PropTypes.string
 }

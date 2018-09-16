@@ -1,12 +1,14 @@
 import {createMuiTheme} from '@material-ui/core/styles'
 
+import {lightOrange, lightGray} from '../components/Utils/Colors'
+
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#f9dbc0'
+      main: lightOrange
     },
     secondary: {
-      main: '#607D8B'
+      main: lightGray
     }
   },
   typography: {

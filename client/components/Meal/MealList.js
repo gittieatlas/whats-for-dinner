@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {Typography, Grid} from '@material-ui/core'
 import MealItem from './MealItem'
+import {gridSpacing} from '../Utils/Numbers'
 
 import {withStyles} from '@material-ui/core/styles'
 import globalStyles from '../Utils/GlobalStyles.css'
@@ -21,7 +22,7 @@ class MealList extends Component {
           All Meals
         </Typography>
 
-        <Grid container spacing={40}>
+        <Grid container spacing={gridSpacing}>
           {this.props.meals.map(meal => <MealItem meal={meal} key={meal.id} />)}
         </Grid>
       </div>

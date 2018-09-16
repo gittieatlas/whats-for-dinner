@@ -15,12 +15,9 @@ import globalStyles from '../Utils/GlobalStyles.css'
 
 const MealItem = props => {
   const {meal, classes} = props
-  const handleClick = () => {
-    history.push(`/meals/${meal.id}`)
-  }
   return (
     <Grid item xs={12} sm={12} md={6}>
-      <Card onClick={handleClick}>
+      <Card onClick={() => history.push(`/meals/${meal.id}`)}>
         <CardActionArea>
           <CardMedia
             component="img"

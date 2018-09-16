@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {Navbar, Footer} from './components'
+import {Navbar, Footer, Notifier} from './components'
 import Routes from './Routes'
 import MuiTheme from './components/MuiTheme'
 import {CssBaseline} from '@material-ui/core'
@@ -26,6 +26,7 @@ class App extends Component {
             <Routes />
           </main>
           <Footer />
+          <Notifier />
           {/* <!-- end components --> */}
         </React.Fragment>
       </MuiThemeProvider>

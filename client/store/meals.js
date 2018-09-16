@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import {openSnackbar} from '../components/Utils/Notifier'
+
 // ACTION TYPES
 export const SET_MEALS = 'SET_MEALS'
 
@@ -12,7 +14,7 @@ export const fetchMeals = () => async dispatch => {
     const res = await axios.get('/api/meals')
     dispatch(setMeals(res.data))
   } catch (err) {
-    console.error('Fetching meals unsuccessful', err)
+    openSnackbar({message: 'Fetching meals unsuccessful'})
   }
 }
 

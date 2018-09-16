@@ -5,6 +5,6 @@
  */
 export {default as Navbar} from './Layout/Navbar'
 export {default as Footer} from './Layout/Footer'
-export {default as UserHome} from './Auth/UserHome'
 export {Login, Signup} from './Auth/AuthForm'
 export {default as MealList} from './Meal/MealList'
+export {default as Notifier, openSnackbar} from './Utils/Notifier'
