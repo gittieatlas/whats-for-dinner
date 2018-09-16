@@ -15,7 +15,7 @@ const footerData = [
         text: 'all meals',
         onClick: e => {
           e.preventDefault()
-          history.push('meals')
+          history.push('/meals')
         }
       },
       {text: 'about'},

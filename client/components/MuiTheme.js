@@ -13,6 +13,13 @@ const theme = createMuiTheme({
   },
   typography: {
     fontFamily: 'Muli, serif'
+  },
+  overrides: {
+    MuiButton: {
+      raisedPrimary: {
+        color: lightGray
+      }
+    }
   }
 })
 

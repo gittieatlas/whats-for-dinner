@@ -47,7 +47,9 @@ export default theme => ({
   mTop8: {
     marginTop: theme.spacing.unit * 8
   },
-
+  mTop4: {
+    marginTop: theme.spacing.unit * 4
+  },
   mTop2: {
     marginTop: theme.spacing.unit * 2
   },
@@ -66,5 +68,12 @@ export default theme => ({
   form: {
     width: '100%', // Fix IE11 issue.
     marginTop: theme.spacing.unit
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120
+  },
+  selectEmpty: {
+    marginTop: theme.spacing.unit * 2
   }
 })

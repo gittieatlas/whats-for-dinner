@@ -18,6 +18,14 @@ export const fetchMeals = () => async dispatch => {
   }
 }
 
+export function getMeal(meals, mealId) {
+  return meals.find(meal => meal.id === mealId)
+}
+
+export const selectMeal = (meals, id) => {
+  return meals.find(meal => meal.id === id)
+}
+
 // REDUCER
 export default function reducer(meals = [], action) {
   switch (action.type) {
