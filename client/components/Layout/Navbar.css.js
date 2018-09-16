@@ -4,5 +4,8 @@ export default theme => ({
   },
   toolbarTitle: {
     flex: 1
+  },
+  row: {
+    display: 'flex'
   }
 })
