@@ -5,7 +5,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const meals = await Meal.findAll({
-      include: [{model: Size}]
+      include: [{model: Size}, 'size', 'ASC']
     })
     res.json(meals)
   } catch (err) {
