@@ -20,11 +20,8 @@ describe.only('Front-End', () => {
         'A little marinade goes a long way with our flavorful Mediterranean-Spiced Grilled Chicken that can be prepared on the stove or grill. The crisp, roasted sweet potatoes add a savory complement to the spice and the fattoush salad rounds everything out with a refreshing side of veggies.',
       imageUrl:
         'https://cdn.shopify.com/s/files/1/0006/0227/5901/products/2018-06-CoCoBox_JenMayPhoto_20_800x.png?v=1531271400',
-      sizes: [
-        {price: '38', size: '2', mealId: 1},
-        {price: '68', size: '4', mealId: 1},
-        {price: '108', size: '6', mealId: 1}
-      ]
+      servings: '2',
+      price: 3800
     },
     {
       name: 'Dijon Salmon',
@@ -33,11 +30,8 @@ describe.only('Front-End', () => {
         'Salmon and mushrooms are an unlikely, yet beautiful flavor pairing that really sings when baked. This is a hands-off recipe that’ll leave you wondering why you’ve never tried this delightful combo before. But hey, at least you know now!',
       imageUrl:
         'https://cdn.shopify.com/s/files/1/0006/0227/5901/products/2018-06-CoCoBox_JenMayPhoto_62_800x.png?v=1531271488',
-      sizes: [
-        {price: '48', size: '2', mealId: 2},
-        {price: '88', size: '4', mealId: 2},
-        {price: '138', size: '6', mealId: 2}
-      ]
+      servings: '4',
+      price: 8800
     }
   ]
 

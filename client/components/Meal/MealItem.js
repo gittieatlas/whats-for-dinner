@@ -30,7 +30,7 @@ const MealItem = props => {
               {meal.name}
             </Typography>
             <Typography align="center" color="secondary">
-              {`From $${meal.sizes[0].price} for ${meal.sizes[0].size}`}
+              {`$${(meal.price / 100).toFixed(0)} for ${meal.servings}`}
             </Typography>
           </CardContent>
         </CardActionArea>
