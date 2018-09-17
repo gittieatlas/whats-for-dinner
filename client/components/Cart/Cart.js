@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import Typography from '@material-ui/core/Typography'
@@ -52,7 +53,16 @@ class Cart extends Component {
         </Typography>
         {!Object.keys(cart).length ? (
           <Typography variant="subheading" color="textPrimary" align="center">
-            No items in the cart
+            Your cart is empty<br />
+            <Button
+              component={Link}
+              to="/meals"
+              color="primary"
+              variant="raised"
+              className={classes.mTop4}
+            >
+              Shop our meals
+            </Button>
           </Typography>
         ) : (
           <Fragment>
