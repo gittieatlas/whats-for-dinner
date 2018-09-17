@@ -14,6 +14,16 @@ export default theme => ({
       marginRight: 'auto'
     }
   },
+  layoutMedium: {
+    width: 'auto',
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
+      width: 600,
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    }
+  },
   layoutSmall: {
     width: 'auto',
     display: 'block', // Fix IE11 issue.
@@ -103,5 +113,14 @@ export default theme => ({
   alignerRight: {
     display: 'flex',
     justifyContent: 'flex-end'
+  },
+  stepper: {
+    padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`
+  },
+  listItem: {
+    padding: `${theme.spacing.unit}px 0`
+  },
+  total: {
+    fontWeight: '700'
   }
 })
