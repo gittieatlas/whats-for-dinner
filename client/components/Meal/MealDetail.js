@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
+import history from '../../history'
 
 import {withRouter} from 'react-router-dom'
 import {Typography, Grid, CardMedia, Button} from '@material-ui/core'
 import {gridSpacing} from '../Utils/Numbers'
 import {fetchMeals, selectMeal} from '../../store/meals'
+import {addToCart} from '../../store/cart'
 
 import {withStyles} from '@material-ui/core/styles'
 import globalStyles from '../Utils/GlobalStyles.css'
@@ -18,7 +20,11 @@ class MealDetails extends Component {
     await this.props.loadMeals()
   }
 
-  handleAddToCart = () => {}
+  handleAddToCart = async () => {
+    const meal = this.props.meal
+    await this.props.addItem(meal.id)
+    history.push('/cart')
+  }
 
   render() {
     const {classes, meal} = this.props
@@ -90,7 +96,8 @@ const mapState = (state, ownProps) => {
 }
 
 const mapDispatch = dispatch => ({
-  loadMeals: () => dispatch(fetchMeals())
+  loadMeals: () => dispatch(fetchMeals()),
+  addItem: productId => dispatch(addToCart(productId))
 })
 
 export default withStyles(globalStyles)(
