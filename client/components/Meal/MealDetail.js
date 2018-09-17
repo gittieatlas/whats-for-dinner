@@ -1,14 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
+import history from '../../history'
 
 import {withRouter} from 'react-router-dom'
 import {Typography, Grid, CardMedia, Button} from '@material-ui/core'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
 import {gridSpacing} from '../Utils/Numbers'
 import {fetchMeals, selectMeal} from '../../store/meals'
+import {addToCart} from '../../store/cart'
 
 import {withStyles} from '@material-ui/core/styles'
 import globalStyles from '../Utils/GlobalStyles.css'
@@ -19,29 +18,19 @@ class MealDetails extends Component {
   async componentDidMount() {
     // ensures that the app will work even if the "entry point" is this component
     await this.props.loadMeals()
-    this.props.meal.sizes[0] &&
-      this.setState({
-        size: this.props.meal.sizes[0]
-      })
-  }
-  state = {
-    size: this.props.meal.sizes[0] || {}
   }
 
-  handleChange = event => {
-    const sizeId = event.target.value
-    this.setState({
-      size: this.props.meal.sizes.find(serving => serving.id === sizeId)
-    })
+  handleAddToCart = async () => {
+    const meal = this.props.meal
+    await this.props.addItem(meal.id)
+    history.push('/cart')
   }
-
-  handleAddToCart = () => {}
 
   render() {
     const {classes, meal} = this.props
-    const {size} = this.state
-    const {handleChange, handleAddToCart} = this
-    return !meal && !size ? (
+
+    const {handleAddToCart} = this
+    return !meal ? (
       <Typography
         variant="title"
         color="secondary"
@@ -73,41 +62,24 @@ class MealDetails extends Component {
             color="secondary"
             className={classes.mTop2}
           >
-            {`$${size.price}`}
+            {`$${(meal.price / 100).toFixed(0)}`} | {`Serves ${meal.servings}`}
           </Typography>
-
-          <FormControl className={classes.mTop4} fullWidth>
-            <Select
-              value={size.id}
-              onChange={handleChange}
-              inputProps={{
-                name: 'size',
-                id: 'size'
-              }}
-            >
-              {meal.sizes.map(serving => (
-                <MenuItem key={serving.size} value={serving.id}>{`Serves ${
-                  serving.size
-                }`}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
 
           <Button
             type="submit"
             fullWidth
             variant="raised"
             color="primary"
-            className={classes.mTop2}
+            className={classes.mTop4}
             onClick={handleAddToCart}
           >
-            {`Add to cart \u2022 $ ${size.price}`}
+            {`Add to cart \u2022 $${(meal.price / 100).toFixed(0)}`}
           </Button>
 
           <Typography
             variant="subheading"
             color="secondary"
-            className={classes.mTop8}
+            className={classes.mTop4}
           >
             {meal.longDescription}
           </Typography>
@@ -124,7 +96,8 @@ const mapState = (state, ownProps) => {
 }
 
 const mapDispatch = dispatch => ({
-  loadMeals: () => dispatch(fetchMeals())
+  loadMeals: () => dispatch(fetchMeals()),
+  addItem: productId => dispatch(addToCart(productId))
 })
 
 export default withStyles(globalStyles)(

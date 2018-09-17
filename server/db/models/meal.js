@@ -14,6 +14,14 @@ const Meal = db.define('meal', {
   },
   imageUrl: {
     type: Sequelize.STRING
+  },
+  price: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
+  servings: {
+    type: Sequelize.ENUM('2', '4', '6'),
+    allowNull: false
   }
 })
 
