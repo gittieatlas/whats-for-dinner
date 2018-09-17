@@ -97,7 +97,7 @@ const mapState = (state, ownProps) => {
 
 const mapDispatch = dispatch => ({
   loadMeals: () => dispatch(fetchMeals()),
-  addItem: productId => dispatch(addToCart(productId))
+  addItem: mealId => dispatch(addToCart(mealId))
 })
 
 export default withStyles(globalStyles)(

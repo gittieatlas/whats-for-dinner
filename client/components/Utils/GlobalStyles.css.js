@@ -75,5 +75,33 @@ export default theme => ({
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2
+  },
+  table: {
+    minWidth: 700
+  },
+  textCenter: {
+    textAlign: 'center'
+  },
+  thumbnail: {
+    width: theme.spacing.unit * 24,
+    height: theme.spacing.unit * 24,
+    objectFit: 'scale-down'
+  },
+  alignMiddle: {
+    verticalAlign: 'middle'
+  },
+  aligner: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  alignerColumn: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
+  },
+  alignerRight: {
+    display: 'flex',
+    justifyContent: 'flex-end'
   }
 })
