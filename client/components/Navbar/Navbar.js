@@ -25,7 +25,15 @@ const Navbar = ({handleClick, isLoggedIn, classes, email}) => (
       {isLoggedIn ? (
         <div className={classNames(classes.row, classes.icon)}>
           {/* The navbar will show these links after you log in */}
-
+          <Button
+            component={Link}
+            to="/cart"
+            color="secondary"
+            variant="outlined"
+            className={classes.icon}
+          >
+            View Cart
+          </Button>
           <Button onClick={handleClick} color="secondary" variant="outlined">
             Logout
           </Button>
@@ -36,16 +44,6 @@ const Navbar = ({handleClick, isLoggedIn, classes, email}) => (
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-
-          <Button
-            component={Link}
-            to="/cart"
-            color="secondary"
-            variant="outlined"
-            className={classes.icon}
-          >
-            View Cart
-          </Button>
 
           <Button
             component={Link}
