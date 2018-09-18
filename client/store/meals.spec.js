@@ -17,7 +17,7 @@ const mockStore = configureMockStore(middlewares)
 import {SET_MEALS, setMeals, fetchMeals} from './meals'
 import {reducer} from './index'
 
-describe.only('Meals Reducer', () => {
+describe('Meals Reducer', () => {
   const initialState = {meals: []}
 
   const fakeMeals = [
