@@ -11,6 +11,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import CartItem from './CartItem'
+import {CartEmpty} from '../index'
 import {
   selectCartTotal,
   removeFromCart,
@@ -44,26 +45,14 @@ class Cart extends Component {
     return (
       <div>
         <Typography
-          variant="title"
-          color="secondary"
+          variant="display1"
           align="center"
           className={classes.header}
         >
           Cart
         </Typography>
         {!Object.keys(cart).length ? (
-          <Typography variant="subheading" color="textPrimary" align="center">
-            Your cart is empty<br />
-            <Button
-              component={Link}
-              to="/meals"
-              color="primary"
-              variant="raised"
-              className={classes.mTop4}
-            >
-              Shop our meals
-            </Button>
-          </Typography>
+          <CartEmpty />
         ) : (
           <Fragment>
             <Table className={classes.table}>
@@ -85,7 +74,11 @@ class Cart extends Component {
                       meal={meal}
                       count={cart[mealId]}
                       handleRemoveFromCart={handleRemoveFromCart}
-                      handleDecreaseItemCount={handleDecreaseItemCount}
+                      handleDecreaseItemCount={
+                        cart[mealId] !== 1
+                          ? handleDecreaseItemCount
+                          : handleRemoveFromCart
+                      }
                       handleIncreaseItemCount={handleIncreaseItemCount}
                     />
                   )
@@ -101,6 +94,8 @@ class Cart extends Component {
 
             <div className={classNames(classes.alignerRight, classes.mTop4)}>
               <Button
+                component={Link}
+                to="/checkout"
                 variant="raised"
                 color="primary"
                 className={classes.button}

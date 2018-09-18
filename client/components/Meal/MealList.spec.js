@@ -11,7 +11,7 @@ import MealsList from './MealList'
 
 import {createShallow} from '@material-ui/core/test-utils'
 
-describe.only('Front-End', () => {
+describe('Front-End', () => {
   const meals = [
     {
       name: 'Mediterranean-Spiced Grilled Chicken',

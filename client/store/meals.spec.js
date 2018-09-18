@@ -13,14 +13,11 @@ import thunkMiddleware from 'redux-thunk'
 const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)
 
-// meals reducer
+// meals reducer and combined reducer
 import {SET_MEALS, setMeals, fetchMeals} from './meals'
+import {reducer} from './index'
 
-describe.only('Meals Reducer', () => {
-  let store
-  let mockAxios
-  let actions
-
+describe('Meals Reducer', () => {
   const initialState = {meals: []}
 
   const fakeMeals = [
@@ -46,32 +43,43 @@ describe.only('Meals Reducer', () => {
     }
   ]
 
-  beforeEach(async () => {
-    mockAxios = new MockAdapter(axios)
-    store = mockStore(initialState)
-
-    mockAxios.onGet('/api/meals').replyOnce(200, fakeMeals)
-    await store.dispatch(fetchMeals(fakeMeals))
-    actions = store.getActions()
-  })
-
-  afterEach(() => {
-    mockAxios.restore()
-    store.clearActions()
-  })
-
   describe('fetch meals', () => {
+    let store
+    let mockAxios
+    let actions
+
+    beforeEach(async () => {
+      mockAxios = new MockAdapter(axios)
+      store = mockStore(initialState)
+      store.replaceReducer(reducer)
+
+      mockAxios.onGet('/api/meals').replyOnce(200, fakeMeals)
+      await store.dispatch(fetchMeals(fakeMeals))
+      actions = store.getActions()
+    })
+
+    afterEach(() => {
+      mockAxios.restore()
+      store.clearActions()
+    })
+
     it('eventually dispatches the SET_MEALS action', () => {
       expect(actions[0]).to.be.deep.equal(setMeals(fakeMeals))
       expect(actions[0].type).to.be.equal(SET_MEALS)
       expect(actions[0].meals).to.be.deep.equal(fakeMeals)
     })
+  })
 
-    xit('store has new state with the fetched meals', () => {
-      // TODO: how to test that the state changed?
-      // state.meals is empty array at this point
-      // expect(store.getState().meals).to.deep.equal(fakeMeals)
-      // expect(store.getState().meals).to.have.length(2)
+  describe('meals state', () => {
+    const meals = fakeMeals
+    const newState = reducer(initialState, setMeals(meals))
+
+    it('returns a new state with the updated meals', () => {
+      expect(newState.meals).to.deep.equal(fakeMeals)
+    })
+
+    it('does not modify the previous state', () => {
+      expect(initialState).to.deep.equal({meals: []})
     })
   })
 })
