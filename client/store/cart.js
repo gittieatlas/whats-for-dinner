@@ -27,22 +27,18 @@ const decreasedItemCount = mealId => ({
 
 // THUNKS
 export const addToCart = mealId => dispatch => {
-  // TODO: await and make http POST request for persistance
   dispatch(addedToCart(mealId))
 }
 
 export const removeFromCart = mealId => dispatch => {
-  // TODO: await and make http POST request for persistance
   dispatch(removedFromCart(mealId))
 }
 
 export const decreaseItemCount = mealId => dispatch => {
-  // TODO: await and make http POST request for persistance
   dispatch(decreasedItemCount(mealId))
 }
 
 export const increaseItemCount = mealId => dispatch => {
-  // TODO: await and make http POST request for persistance
   dispatch(increasedItemCount(mealId))
 }
 
