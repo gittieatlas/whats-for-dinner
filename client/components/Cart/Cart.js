@@ -74,7 +74,11 @@ class Cart extends Component {
                       meal={meal}
                       count={cart[mealId]}
                       handleRemoveFromCart={handleRemoveFromCart}
-                      handleDecreaseItemCount={handleDecreaseItemCount}
+                      handleDecreaseItemCount={
+                        cart[mealId] !== 1
+                          ? handleDecreaseItemCount
+                          : handleRemoveFromCart
+                      }
                       handleIncreaseItemCount={handleIncreaseItemCount}
                     />
                   )

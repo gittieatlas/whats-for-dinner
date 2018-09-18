@@ -95,7 +95,7 @@ export default function reducer(cart = {}, action) {
     case DECREASE_ITEM_COUNT:
       return {
         ...cart,
-        [action.mealId]: cart[action.mealId] - 1 // TODO: handle if ends up at 0
+        [action.mealId]: cart[action.mealId] - 1
       }
 
     default:
