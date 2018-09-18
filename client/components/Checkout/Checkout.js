@@ -33,7 +33,9 @@ class Checkout extends Component {
   handleSubmit = async event => {
     event.preventDefault()
 
+    // OB: could do either local state or redux store state, don't need both
     await this.props.saveDeliveryInfo({...this.state})
+    // OB: if you return from the thunk you could capture the id and set it on state (and they you won't have to clear it properly)
     this.props.postOrder()
   }
 
@@ -52,7 +54,7 @@ class Checkout extends Component {
           Checkout
         </Typography>
 
-        {!orderNumber ? (
+        {!orderNumber ? ( // OB: invert this ternary, smaller "case" should come first
           <Fragment>
             {!itemInCart ? (
               <CartEmpty />
@@ -154,6 +156,8 @@ class Checkout extends Component {
   }
 }
 
+// OB: could define an "inverseSelector" HERE for sending the form data back to the store
+
 const mapState = ({cart, meals, checkout}) => {
   return {
     cartTotal: selectCartTotal(cart, meals),
@@ -168,6 +172,7 @@ const mapDispatch = dispatch => ({
   postOrder: () => dispatch(postOrder())
 })
 
+// OB: might be able to use an object compose utility, like I think it exists in lodash maybe? ramda?
 export default withStyles(theme => ({
   ...globalStyles(theme),
   ...styles(theme)

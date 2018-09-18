@@ -49,7 +49,9 @@ describe('Meal routes', () => {
 
       expect(response.body).to.have.length(2)
 
+      // OB: potential race condition with `.bulkCreate` (but probably not)
       expect(response.body[0].name).to.equal(mealData[1].name)
+      // OB: potential bug to investigate                 v
       expect(response.body[0].servings).to.equal(mealData[0].serving)
 
       expect(response.body[1].name).to.equal(mealData[0].name)

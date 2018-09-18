@@ -45,7 +45,7 @@ describe.only('Meal model', () => {
           'validation was successful but should have failed if name is an empty string'
         )
       } catch (err) {
-        expect(err.message).to.contain('Validation error')
+        expect(err.message).to.contain('Validation error') // OB: might be too wide a net, could produce false positives
       }
     })
 
@@ -62,6 +62,7 @@ describe.only('Meal model', () => {
 
       try {
         await meal.validate()
+        // OB: can lead to awkward mocha reporting, consider using `chai-as-promised`, which would allow you to do `cosnt err = await expect(meal.validate()).to.be.rejected`
         throw Error(
           'validation was successful but should have failed without `price`'
         )

@@ -44,7 +44,7 @@ describe('Front-End', () => {
     it('renders list items for the meals passed in as props', () => {
       const mealRecords = meals
       const wrapper = shallow(<MealsList meals={mealRecords} />)
-      const listItems = wrapper.find('li')
+      const listItems = wrapper.find('li') // OB: can `.find(MealItem)`
       expect(listItems).to.have.length(2)
       // expect(listItems.at(1).text()).to.contain(meals[1].name)
     })
@@ -59,6 +59,7 @@ describe('Front-End', () => {
 
     it('should work', () => {
       const wrapper = shallow(<MealsList meals={[]} />)
+      // OB: `.dive` will probably be important, cool! `.dive` deeply renders the component
       expect(wrapper.dive().find(MealsList)).toHaveLength(1)
       // expect(wrapper.find('grid')).to.have.length(1)
     })

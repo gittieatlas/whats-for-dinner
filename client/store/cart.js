@@ -42,6 +42,7 @@ export const increaseItemCount = mealId => dispatch => {
   dispatch(increasedItemCount(mealId))
 }
 
+// OB: part of this logic could become a universal util function somewhere, becasue it also might come in handy on the backend
 export const selectCartTotal = (cart, meals) => {
   return Object.keys(cart)
     .map(mealId => {
@@ -70,6 +71,7 @@ export default function reducer(cart = {}, action) {
         }
       }
 
+    // OB: might want util function called like `omit` that removes a key immutably
     case REMOVE_FROM_CART:
       const mealIds = Object.keys(cart).filter(
         mealId => Number(mealId) !== action.mealId
@@ -82,12 +84,14 @@ export default function reducer(cart = {}, action) {
       })
       return newCart
 
+    // OB: could be depecrated, redundant with ADD_TO_CART
     case INCREASE_ITEM_COUNT:
       return {
         ...cart,
         [action.mealId]: cart[action.mealId] + 1
       }
 
+    // OB: could lead to invalid state
     case DECREASE_ITEM_COUNT:
       return {
         ...cart,
