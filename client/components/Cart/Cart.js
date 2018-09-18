@@ -23,6 +23,7 @@ import {withStyles} from '@material-ui/core/styles'
 import globalStyles from '../Utils/GlobalStyles.css'
 
 class Cart extends Component {
+  // OB: might be unnecessary abstraction (I lean towards remove it)
   handleRemoveFromCart = mealId => {
     this.props.removeItem(mealId)
   }
@@ -65,6 +66,7 @@ class Cart extends Component {
               </TableHead>
               <TableBody>
                 {Object.keys(cart).map(mealId => {
+                  // OB: looks like your meal selector, could reuse it
                   const meal = meals.find(
                     mealToFind => mealToFind.id === Number(mealId)
                   )
@@ -88,6 +90,7 @@ class Cart extends Component {
 
             <div className={classNames(classes.alignerRight, classes.mTop4)}>
               <Typography variant="title" color="textPrimary">
+                {/* OB: might be worth a util */}
                 Total: {`$${(cartTotal / 100).toFixed(0)}`}
               </Typography>
             </div>
@@ -118,6 +121,15 @@ const mapState = ({cart, meals}) => {
   }
 }
 
+// OB: object format for `mapDispatchToProps`...
+/*
+// for common use cases, can do:
+const mapDispatch = {
+  removeItem: removeFromCart,
+  increaseItem: increaseItemCount,
+  decreaseItem: decreaseItemCount
+};
+*/
 const mapDispatch = dispatch => ({
   removeItem: mealId => dispatch(removeFromCart(mealId)),
   increaseItem: mealId => dispatch(increaseItemCount(mealId)),

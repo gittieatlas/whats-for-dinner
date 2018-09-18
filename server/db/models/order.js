@@ -10,6 +10,9 @@ const Order = db.define('order', {
     type: Sequelize.JSON,
     allowNull: false
   },
+  /* OB: some libraries out there for random input validations
+  Not only useful for not needing to reinvent the wheel, but also useful for universal code reuse. Having a data model validations that are not coupled to your tables. Then you can use these validations in sequelize AND in your forms in the frontend.
+  */
   phoneNumber: {
     type: Sequelize.STRING,
     allowNull: false,
