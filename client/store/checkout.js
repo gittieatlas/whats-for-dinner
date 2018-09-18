@@ -11,31 +11,23 @@ export const saveDeliveryInfo = deliveryData => ({
   type: SAVE_DELIVERY_INFO,
   deliveryData
 })
+
 export const placedOrder = confirmationNumber => ({
   type: PLACED_ORDER,
   confirmationNumber
 })
 
 // THUNK CREATORS
-export const postOrder = orderData => async dispatch => {
-  // TODO: pass data in as arg
-  const orderDataMock = {
-    address: {
-      address1: '1002 West Kennedy BLVD',
-      address2: '',
-      city: 'Lakewood',
-      state: 'NJ',
-      zip: '08701'
-    },
-    phoneNumber: '7329019491',
-    cart: {
-      1: 4,
-      2: 7
-    },
-    userId: 3
+export const postOrder = () => async (dispatch, getState) => {
+  const {cart, checkout, user} = getState()
+  const orderData = {
+    address: checkout.shippingAddress,
+    phoneNumber: checkout.phoneNumber,
+    cart,
+    userId: user.id
   }
   try {
-    const res = await axios.post('/api/orders', orderDataMock)
+    const res = await axios.post('/api/orders', orderData)
     dispatch(placedOrder(res.data))
   } catch (err) {
     openSnackbar({message: 'Placing order unsuccessful'})
@@ -47,8 +39,14 @@ export default function reducer(orderInfo = {}, action) {
   switch (action.type) {
     case SAVE_DELIVERY_INFO:
       return {
-        shippingAddress: action.deliveryData.address,
-        phoneNumber: action.deliveryData.phoneNumber
+        shippingAddress: {
+          address1: action.deliveryData.address1,
+          address2: action.deliveryData.address2,
+          city: action.deliveryData.city,
+          state: action.deliveryData.state,
+          zip: action.deliveryData.zip
+        },
+        phoneNumber: action.deliveryData.phone
       }
 
     case PLACED_ORDER:

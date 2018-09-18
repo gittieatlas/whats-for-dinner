@@ -32,7 +32,6 @@ class Checkout extends Component {
 
   handleSubmit = async event => {
     event.preventDefault()
-    console.log('submit form')
 
     await this.props.saveDeliveryInfo({...this.state})
     this.props.postOrder()
@@ -70,8 +69,8 @@ class Checkout extends Component {
                   <Grid item xs={12}>
                     <TextField
                       required
-                      id="addiress1"
-                      name="addiress1"
+                      id="address1"
+                      name="address1"
                       label="Address line 1"
                       fullWidth
                       autoComplete="billing address-line1"
@@ -80,8 +79,8 @@ class Checkout extends Component {
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
-                      id="addiress2"
-                      name="addiress2"
+                      id="address2"
+                      name="address2"
                       label="Address line 2"
                       fullWidth
                       autoComplete="billing address-line2"
