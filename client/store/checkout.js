@@ -36,7 +36,6 @@ export const postOrder = orderData => async dispatch => {
   }
   try {
     const res = await axios.post('/api/orders', orderDataMock)
-    // TODO: send email if order was placed by a logged in user
     dispatch(placedOrder(res.data))
   } catch (err) {
     openSnackbar({message: 'Placing order unsuccessful'})

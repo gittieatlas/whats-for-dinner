@@ -12,6 +12,9 @@ router.post('/', async (req, res, next) => {
       userId
     }
     const order = await Order.create(orderData, {returning: true})
+    if (userId) {
+      // TODO: Send email
+    }
     res.json(order.id)
   } catch (err) {
     next(err)
