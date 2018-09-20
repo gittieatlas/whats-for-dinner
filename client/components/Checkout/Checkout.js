@@ -32,8 +32,6 @@ class Checkout extends Component {
       phoneNumber: event.target.phone.value
     }
 
-    console.log(deliveryData)
-
     await this.props.saveDeliveryInfo(deliveryData)
 
     const orderNumber = await this.props.postOrder()

@@ -79,7 +79,6 @@ export default function reducer(cart = initialState, action) {
       const mealIds = Object.keys(cart).filter(
         mealId => Number(mealId) !== action.mealId
       )
-      console.log(mealIds)
 
       const newCart = {}
       mealIds.forEach(mealId => {
