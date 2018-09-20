@@ -58,13 +58,15 @@ class Cart extends Component {
                       key={meal.id}
                       meal={meal}
                       count={cart[mealId]}
-                      handleRemoveFromCart={this.props.removeItem(mealId)}
+                      handleRemoveFromCart={() => this.props.removeItem(mealId)}
                       handleDecreaseItemCount={
                         cart[mealId] !== 1
-                          ? this.props.decreaseItem(mealId)
-                          : this.props.removeItem(mealId)
+                          ? () => this.props.decreaseItem(mealId)
+                          : () => this.props.removeItem(mealId)
                       }
-                      handleIncreaseItemCount={this.props.increaseItem(mealId)}
+                      handleIncreaseItemCount={() =>
+                        this.props.increaseItem(mealId)
+                      }
                     />
                   )
                 })}
