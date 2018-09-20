@@ -1,3 +1,10 @@
+//Enzyme
+import enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
+const adapter = new Adapter()
+enzyme.configure({adapter})
+import {createShallow} from '@material-ui/core/test-utils'
+
 // Assertions
 const chai = require('chai')
 const expect = chai.expect
@@ -5,13 +12,17 @@ const chaiThings = require('chai-things')
 chai.use(chaiThings)
 
 // MealsList component
-import {shallow} from 'enzyme'
 import React from 'react'
-import MealsList from './MealList'
+import {MealList} from './MealList'
+import {MealItem} from './MealItem'
+import globalStyles from '../Utils/GlobalStyles.css'
+import {withStyles} from '@material-ui/core/styles'
+const StyledMealList = withStyles(globalStyles)(MealList)
+import Typography from '@material-ui/core/Typography'
 
-import {createShallow} from '@material-ui/core/test-utils'
+describe.only('<MealsList /> component', () => {
+  let shallow
 
-describe('Front-End', () => {
   const meals = [
     {
       name: 'Mediterranean-Spiced Grilled Chicken',
@@ -35,32 +46,27 @@ describe('Front-End', () => {
     }
   ]
 
-  describe('<MealsList /> component', () => {
-    it('renders an unordered list', () => {
-      const wrapper = shallow(<MealsList meals={[]} />)
-      expect(wrapper.find('grid')).to.have.length(1)
-    })
-
-    it('renders list items for the meals passed in as props', () => {
-      const mealRecords = meals
-      const wrapper = shallow(<MealsList meals={mealRecords} />)
-      const listItems = wrapper.find('li')
-      expect(listItems).to.have.length(2)
-      // expect(listItems.at(1).text()).to.contain(meals[1].name)
-    })
+  before(() => {
+    shallow = createShallow()
   })
 
-  describe('<MealsList />', () => {
-    let shallow
+  it('should work', () => {
+    const wrapper = shallow(<StyledMealList meals={[]} />)
+    expect(wrapper.dive().find(<MealItem />)).to.have.length(0)
+  })
 
-    before(() => {
-      shallow = createShallow()
-    })
+  it(`renders a title "All Meals"`, () => {
+    const wrapper = shallow(<StyledMealList meals={meals} />)
+    const target = <Typography>All Meals</Typography>
+    expect(wrapper.dive().containsMatchingElement(target)).to.equal(true)
+  })
 
-    it('should work', () => {
-      const wrapper = shallow(<MealsList meals={[]} />)
-      expect(wrapper.dive().find(MealsList)).toHaveLength(1)
-      // expect(wrapper.find('grid')).to.have.length(1)
-    })
+  xit('WIP: renders list items for the meals passed in as props', () => {
+    const wrapper = shallow(<StyledMealList meals={meals} />)
+
+    console.log(wrapper.dive().debug())
+    const listItems = wrapper.dive().find(<MealItem />)
+    expect(listItems).to.have.length(2)
+    expect(listItems.at(1).text()).to.contain(meals[1].name)
   })
 })

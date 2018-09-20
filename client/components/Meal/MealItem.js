@@ -14,7 +14,7 @@ import {toCurrency} from '../../utils/stringUtils'
 import {withStyles} from '@material-ui/core/styles'
 import globalStyles from '../Utils/GlobalStyles.css'
 
-const MealItem = props => {
+export const MealItem = props => {
   const {meal, classes} = props
   return (
     <Grid item xs={12} sm={12} md={6}>

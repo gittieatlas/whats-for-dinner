@@ -8,7 +8,7 @@ import {gridSpacing} from '../Utils/Numbers'
 import {withStyles} from '@material-ui/core/styles'
 import globalStyles from '../Utils/GlobalStyles.css'
 
-class MealList extends Component {
+export class MealList extends Component {
   render() {
     const {classes} = this.props
     return (
