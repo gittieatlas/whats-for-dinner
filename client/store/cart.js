@@ -3,6 +3,7 @@ export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const INCREASE_ITEM_COUNT = 'INCREASE_ITEM_COUNT'
 export const DECREASE_ITEM_COUNT = 'DECREASE_ITEM_COUNT'
+export const CLEAR_CART = 'CLEAR_CART'
 
 // ACTION CREATORS
 const addedToCart = mealId => ({
@@ -24,6 +25,8 @@ const decreasedItemCount = mealId => ({
   type: DECREASE_ITEM_COUNT,
   mealId
 })
+
+export const clearCart = () => ({type: CLEAR_CART})
 
 // THUNKS
 export const addToCart = mealId => dispatch => {
@@ -54,8 +57,10 @@ export const selectCartTotal = (cart, meals) => {
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
 }
 
+const initialState = {}
+
 // REDUCER
-export default function reducer(cart = {}, action) {
+export default function reducer(cart = initialState, action) {
   switch (action.type) {
     case ADD_TO_CART:
       if (action.mealId in cart) {
@@ -93,6 +98,9 @@ export default function reducer(cart = {}, action) {
         ...cart,
         [action.mealId]: cart[action.mealId] - 1
       }
+
+    case CLEAR_CART:
+      return initialState
 
     default:
       return cart

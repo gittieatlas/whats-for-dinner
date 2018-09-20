@@ -1,10 +1,12 @@
 import axios from 'axios'
+import {clearCart} from './cart'
 
 import {openSnackbar} from '../components/Utils/Notifier'
 
 // ACTION TYPES
 export const SAVE_DELIVERY_INFO = 'SAVE_DELIVERY_INFO'
 export const PLACED_ORDER = 'PLACED_ORDER'
+export const CLEAR_DELIVERY_INFO = 'CLEAR_DELIVERY_INFO'
 
 // ACTION CREATORS
 export const saveDeliveryInfo = deliveryData => ({
@@ -12,10 +14,7 @@ export const saveDeliveryInfo = deliveryData => ({
   deliveryData
 })
 
-export const placedOrder = confirmationNumber => ({
-  type: PLACED_ORDER,
-  confirmationNumber
-})
+export const clearDeliveryInfo = () => ({type: CLEAR_DELIVERY_INFO})
 
 // THUNK CREATORS
 export const postOrder = () => async (dispatch, getState) => {
@@ -28,31 +27,29 @@ export const postOrder = () => async (dispatch, getState) => {
   }
   try {
     const res = await axios.post('/api/orders', orderData)
-    dispatch(placedOrder(res.data))
+    dispatch(clearCart())
+    dispatch(clearDeliveryInfo())
+    const orderNumber = res.data
+    return orderNumber
   } catch (err) {
     openSnackbar({message: 'Placing order unsuccessful'})
   }
 }
 
+const initialState = {}
+
 // REDUCER
-export default function reducer(orderInfo = {}, action) {
+export default function reducer(orderInfo = initialState, action) {
   switch (action.type) {
     case SAVE_DELIVERY_INFO:
       return {
-        shippingAddress: {
-          address1: action.deliveryData.address1,
-          address2: action.deliveryData.address2,
-          city: action.deliveryData.city,
-          state: action.deliveryData.state,
-          zip: action.deliveryData.zip
-        },
-        phoneNumber: action.deliveryData.phone
+        shippingAddress: action.deliveryData.shippingAddress,
+        phoneNumber: action.deliveryData.phoneNumber
       }
 
-    case PLACED_ORDER:
-      return {
-        orderNumber: action.confirmationNumber
-      }
+    case CLEAR_DELIVERY_INFO:
+      return initialState
+
     default:
       return orderInfo
   }

@@ -16,30 +16,34 @@ import CheckoutConfirmation from './CheckoutConfirmation'
 
 class Checkout extends Component {
   state = {
-    address1: '',
-    address2: '',
-    city: '',
-    state: '',
-    zip: '',
-    phone: ''
-  }
-
-  handleUserInput = event => {
-    const name = event.target.name
-    const value = event.target.value
-    this.setState({[name]: value})
+    orderNumber: null
   }
 
   handleSubmit = async event => {
     event.preventDefault()
+    const deliveryData = {
+      shippingAddress: {
+        address1: event.target.address1.value,
+        address2: event.target.address2.value,
+        city: event.target.city.value,
+        state: event.target.state.value,
+        zip: event.target.zip.value
+      },
+      phoneNumber: event.target.phone.value
+    }
 
-    await this.props.saveDeliveryInfo({...this.state})
-    this.props.postOrder()
+    console.log(deliveryData)
+
+    await this.props.saveDeliveryInfo(deliveryData)
+
+    const orderNumber = await this.props.postOrder()
+    this.setState({orderNumber})
   }
 
   render() {
-    const {handleSubmit, handleUserInput} = this
-    const {classes, cart, orderNumber} = this.props
+    const {handleSubmit} = this
+    const {classes, cart} = this.props
+    const {orderNumber} = this.state
 
     const itemInCart = Object.keys(cart).length
     return (
@@ -52,7 +56,9 @@ class Checkout extends Component {
           Checkout
         </Typography>
 
-        {!orderNumber ? (
+        {orderNumber ? (
+          <CheckoutConfirmation orderNumber={orderNumber} />
+        ) : (
           <Fragment>
             {!itemInCart ? (
               <CartEmpty />
@@ -74,7 +80,6 @@ class Checkout extends Component {
                       label="Address line 1"
                       fullWidth
                       autoComplete="billing address-line1"
-                      onChange={handleUserInput}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -84,7 +89,6 @@ class Checkout extends Component {
                       label="Address line 2"
                       fullWidth
                       autoComplete="billing address-line2"
-                      onChange={handleUserInput}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -95,7 +99,6 @@ class Checkout extends Component {
                       label="City"
                       fullWidth
                       autoComplete="billing address-level2"
-                      onChange={handleUserInput}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -105,7 +108,6 @@ class Checkout extends Component {
                       name="state"
                       label="State/Province/Region"
                       fullWidth
-                      onChange={handleUserInput}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -117,7 +119,6 @@ class Checkout extends Component {
                       label="Zip / Postal code"
                       fullWidth
                       autoComplete="billing postal-code"
-                      onChange={handleUserInput}
                     />
                   </Grid>
 
@@ -130,7 +131,6 @@ class Checkout extends Component {
                       label="Phone Number"
                       fullWidth
                       autoComplete="tel"
-                      onChange={handleUserInput}
                     />
                   </Grid>
                 </Grid>
@@ -146,20 +146,17 @@ class Checkout extends Component {
               </form>
             )}
           </Fragment>
-        ) : (
-          <CheckoutConfirmation orderNumber={orderNumber} />
         )}
       </div>
     )
   }
 }
 
-const mapState = ({cart, meals, checkout}) => {
+const mapState = ({cart, meals}) => {
   return {
     cartTotal: selectCartTotal(cart, meals),
     cart,
-    meals,
-    orderNumber: checkout && checkout.orderNumber
+    meals
   }
 }
 
