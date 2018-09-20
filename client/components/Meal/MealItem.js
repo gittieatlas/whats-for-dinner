@@ -9,6 +9,7 @@ import {
   CardActionArea
 } from '@material-ui/core'
 import history from '../../history'
+import {toCurrency} from '../../utils/stringUtils'
 
 import {withStyles} from '@material-ui/core/styles'
 import globalStyles from '../Utils/GlobalStyles.css'
@@ -30,7 +31,7 @@ const MealItem = props => {
               {meal.name}
             </Typography>
             <Typography align="center" color="secondary">
-              {`$${(meal.price / 100).toFixed(0)} for ${meal.servings}`}
+              {toCurrency(meal.price)} {` for ${meal.servings}`}
             </Typography>
           </CardContent>
         </CardActionArea>

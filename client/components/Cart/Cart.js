@@ -18,6 +18,7 @@ import {
   increaseItemCount,
   decreaseItemCount
 } from '../../store/cart'
+import {toCurrency} from '../../utils/stringUtils'
 
 import {withStyles} from '@material-ui/core/styles'
 import globalStyles from '../Utils/GlobalStyles.css'
@@ -72,7 +73,7 @@ class Cart extends Component {
 
             <div className={classNames(classes.alignerRight, classes.mTop4)}>
               <Typography variant="title" color="textPrimary">
-                Total: {`$${(cartTotal / 100).toFixed(0)}`}
+                Total: {toCurrency(cartTotal)}
               </Typography>
             </div>
 

@@ -9,6 +9,7 @@ import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
+import {toCurrency} from '../../utils/stringUtils'
 
 import {withStyles} from '@material-ui/core/styles'
 import globalStyles from '../Utils/GlobalStyles.css'
@@ -46,7 +47,7 @@ const CartItem = props => {
               className={classes.mTop2}
             >
               {`Serves ${meal.servings}`} <br />
-              {`$${(meal.price / 100).toFixed(0)}`}
+              {toCurrency(meal.price)}
             </Typography>
           </div>
         </div>
@@ -85,9 +86,7 @@ const CartItem = props => {
           Remove
         </Button>
       </TableCell>
-      <TableCell numeric>{`$${(count * meal.price / 100).toFixed(
-        0
-      )}`}</TableCell>
+      <TableCell numeric> {toCurrency(meal.price)}</TableCell>
     </TableRow>
   )
 }

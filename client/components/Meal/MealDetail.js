@@ -8,6 +8,7 @@ import {Typography, Grid, CardMedia, Button} from '@material-ui/core'
 import {gridSpacing} from '../Utils/Numbers'
 import {fetchMeals, selectMeal} from '../../store/meals'
 import {addToCart} from '../../store/cart'
+import {toCurrency} from '../../utils/stringUtils'
 
 import {withStyles} from '@material-ui/core/styles'
 import globalStyles from '../Utils/GlobalStyles.css'
@@ -62,7 +63,7 @@ class MealDetails extends Component {
             color="secondary"
             className={classes.mTop2}
           >
-            {`$${(meal.price / 100).toFixed(0)}`} | {`Serves ${meal.servings}`}
+            {toCurrency(meal.price)} | {`Serves ${meal.servings}`}
           </Typography>
 
           <Button
@@ -73,7 +74,7 @@ class MealDetails extends Component {
             className={classes.mTop4}
             onClick={handleAddToCart}
           >
-            {`Add to cart \u2022 $${(meal.price / 100).toFixed(0)}`}
+            {`Add to cart \u2022 ${toCurrency(meal.price)}`}
           </Button>
 
           <Typography
