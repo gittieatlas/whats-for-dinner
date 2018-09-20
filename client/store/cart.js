@@ -16,11 +16,6 @@ const removedFromCart = mealId => ({
   mealId
 })
 
-const increasedItemCount = mealId => ({
-  type: INCREASE_ITEM_COUNT,
-  mealId
-})
-
 const decreasedItemCount = mealId => ({
   type: DECREASE_ITEM_COUNT,
   mealId
@@ -39,10 +34,6 @@ export const removeFromCart = mealId => dispatch => {
 
 export const decreaseItemCount = mealId => dispatch => {
   dispatch(decreasedItemCount(mealId))
-}
-
-export const increaseItemCount = mealId => dispatch => {
-  dispatch(increasedItemCount(mealId))
 }
 
 export const selectCartTotal = (cart, meals) => {
@@ -76,23 +67,14 @@ export default function reducer(cart = initialState, action) {
       }
 
     case REMOVE_FROM_CART:
-      const mealIds = Object.keys(cart).filter(
-        mealId => Number(mealId) !== action.mealId
-      )
-
-      const newCart = {}
-      mealIds.forEach(mealId => {
-        newCart[mealId] = cart[mealId]
-      })
-      return newCart
-
-    case INCREASE_ITEM_COUNT:
-      return {
-        ...cart,
-        [action.mealId]: cart[action.mealId] + 1
-      }
+      const {[action.mealId]: mealToRemove, ...restOfMeals} = cart
+      return restOfMeals
 
     case DECREASE_ITEM_COUNT:
+      if (cart[action.mealId] === 1) {
+        const {[action.mealId]: remove, ...rest} = cart
+        return rest
+      }
       return {
         ...cart,
         [action.mealId]: cart[action.mealId] - 1

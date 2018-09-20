@@ -15,8 +15,8 @@ import {CartEmpty} from '../index'
 import {
   selectCartTotal,
   removeFromCart,
-  increaseItemCount,
-  decreaseItemCount
+  decreaseItemCount,
+  addToCart
 } from '../../store/cart'
 import {toCurrency} from '../../utils/stringUtils'
 
@@ -53,6 +53,7 @@ class Cart extends Component {
                   const meal = meals.find(
                     mealToFind => mealToFind.id === Number(mealId)
                   )
+
                   return (
                     <CartItem
                       key={meal.id}
@@ -65,7 +66,7 @@ class Cart extends Component {
                           : () => this.props.removeItem(mealId)
                       }
                       handleIncreaseItemCount={() =>
-                        this.props.increaseItem(mealId)
+                        this.props.addToCart(mealId)
                       }
                     />
                   )
@@ -107,7 +108,7 @@ const mapState = ({cart, meals}) => {
 
 const mapDispatch = dispatch => ({
   removeItem: mealId => dispatch(removeFromCart(mealId)),
-  increaseItem: mealId => dispatch(increaseItemCount(mealId)),
+  addToCart: mealId => dispatch(addToCart(mealId)),
   decreaseItem: mealId => dispatch(decreaseItemCount(mealId))
 })
 

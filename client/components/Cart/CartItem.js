@@ -57,7 +57,7 @@ const CartItem = props => {
           <IconButton
             className={classNames(classes.button, classes.icon)}
             aria-label="Add"
-            onClick={() => handleIncreaseItemCount(meal.id)}
+            onClick={handleIncreaseItemCount}
           >
             <AddIcon />
           </IconButton>
@@ -74,15 +74,12 @@ const CartItem = props => {
             className={classes.button}
             aria-label="Remove"
             fontSize="small"
-            onClick={() => handleDecreaseItemCount(meal.id)}
+            onClick={handleDecreaseItemCount}
           >
             <RemoveIcon />
           </IconButton>
         </div>
-        <Button
-          className={classes.button}
-          onClick={() => handleRemoveFromCart(meal.id)}
-        >
+        <Button className={classes.button} onClick={handleRemoveFromCart}>
           Remove
         </Button>
       </TableCell>
