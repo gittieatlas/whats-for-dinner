@@ -50,10 +50,10 @@ describe('Meal routes', () => {
       expect(response.body).to.have.length(2)
 
       expect(response.body[0].name).to.equal(mealData[1].name)
-      expect(response.body[0].servings).to.equal(mealData[0].serving)
+      expect(response.body[0].servings).to.equal(mealData[1].servings)
 
       expect(response.body[1].name).to.equal(mealData[0].name)
-      expect(response.body[1].servings).to.equal(mealData[1].serving)
+      expect(response.body[1].servings).to.equal(mealData[0].servings)
     })
   })
 })

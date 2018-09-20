@@ -4,7 +4,7 @@ const {expect} = require('chai')
 const db = require('../index')
 const Meal = db.model('meal')
 
-describe.only('Meal model', () => {
+describe('Meal model', () => {
   describe('Validations', () => {
     it('requires name', async () => {
       const meal = Meal.build({
