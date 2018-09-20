@@ -14,6 +14,18 @@ import {selectCartTotal} from '../../store/cart'
 import {CartEmpty} from '..'
 import CheckoutConfirmation from './CheckoutConfirmation'
 
+const formatDeliveryData = form => {
+  return {
+    shippingAddress: {
+      address1: form.address1.value,
+      address2: form.address2.value,
+      city: form.city.value,
+      state: form.state.value,
+      zip: form.zip.value
+    },
+    phoneNumber: form.phone.value
+  }
+}
 class Checkout extends Component {
   state = {
     orderNumber: null
@@ -21,18 +33,8 @@ class Checkout extends Component {
 
   handleSubmit = async event => {
     event.preventDefault()
-    const deliveryData = {
-      shippingAddress: {
-        address1: event.target.address1.value,
-        address2: event.target.address2.value,
-        city: event.target.city.value,
-        state: event.target.state.value,
-        zip: event.target.zip.value
-      },
-      phoneNumber: event.target.phone.value
-    }
 
-    await this.props.saveDeliveryInfo(deliveryData)
+    await this.props.saveDeliveryInfo(event.target)
 
     const orderNumber = await this.props.postOrder()
     this.setState({orderNumber})
@@ -159,7 +161,8 @@ const mapState = ({cart, meals}) => {
 }
 
 const mapDispatch = dispatch => ({
-  saveDeliveryInfo: deliveryData => dispatch(saveDeliveryInfo(deliveryData)),
+  saveDeliveryInfo: form =>
+    dispatch(saveDeliveryInfo(formatDeliveryData(form))),
   postOrder: () => dispatch(postOrder())
 })
 
