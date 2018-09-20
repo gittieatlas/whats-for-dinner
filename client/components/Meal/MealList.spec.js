@@ -18,6 +18,7 @@ import {MealItem} from './MealItem'
 import globalStyles from '../Utils/GlobalStyles.css'
 import {withStyles} from '@material-ui/core/styles'
 const StyledMealList = withStyles(globalStyles)(MealList)
+const StyledMealItem = withStyles(globalStyles)(MealItem)
 import Typography from '@material-ui/core/Typography'
 
 describe.only('<MealsList /> component', () => {
@@ -52,7 +53,7 @@ describe.only('<MealsList /> component', () => {
 
   it('should work', () => {
     const wrapper = shallow(<StyledMealList meals={[]} />)
-    expect(wrapper.dive().find(<MealItem />)).to.have.length(0)
+    expect(wrapper.dive().find(<StyledMealItem />)).to.have.length(0)
   })
 
   it(`renders a title "All Meals"`, () => {
@@ -65,7 +66,7 @@ describe.only('<MealsList /> component', () => {
     const wrapper = shallow(<StyledMealList meals={meals} />)
 
     console.log(wrapper.dive().debug())
-    const listItems = wrapper.dive().find(<MealItem />)
+    const listItems = wrapper.dive().find(<StyledMealItem />)
     expect(listItems).to.have.length(2)
     expect(listItems.at(1).text()).to.contain(meals[1].name)
   })
