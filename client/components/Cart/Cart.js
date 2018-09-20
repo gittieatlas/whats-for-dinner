@@ -23,25 +23,9 @@ import {withStyles} from '@material-ui/core/styles'
 import globalStyles from '../Utils/GlobalStyles.css'
 
 class Cart extends Component {
-  handleRemoveFromCart = mealId => {
-    this.props.removeItem(mealId)
-  }
-
-  handleIncreaseItemCount = mealId => {
-    this.props.increaseItem(mealId)
-  }
-
-  handleDecreaseItemCount = mealId => {
-    this.props.decreaseItem(mealId)
-  }
-
   render() {
     const {classes, cart, meals, cartTotal} = this.props
-    const {
-      handleRemoveFromCart,
-      handleDecreaseItemCount,
-      handleIncreaseItemCount
-    } = this
+
     return (
       <div>
         <Typography
@@ -73,13 +57,13 @@ class Cart extends Component {
                       key={meal.id}
                       meal={meal}
                       count={cart[mealId]}
-                      handleRemoveFromCart={handleRemoveFromCart}
+                      handleRemoveFromCart={this.props.removeItem(mealId)}
                       handleDecreaseItemCount={
                         cart[mealId] !== 1
-                          ? handleDecreaseItemCount
-                          : handleRemoveFromCart
+                          ? this.props.decreaseItem(mealId)
+                          : this.props.removeItem(mealId)
                       }
-                      handleIncreaseItemCount={handleIncreaseItemCount}
+                      handleIncreaseItemCount={this.props.increaseItem(mealId)}
                     />
                   )
                 })}
