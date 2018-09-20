@@ -18,12 +18,11 @@ export const clearDeliveryInfo = () => ({type: CLEAR_DELIVERY_INFO})
 
 // THUNK CREATORS
 export const postOrder = () => async (dispatch, getState) => {
-  const {cart, checkout, user} = getState()
+  const {cart, checkout} = getState()
   const orderData = {
     address: checkout.shippingAddress,
     phoneNumber: checkout.phoneNumber,
-    cart,
-    userId: user.id
+    cart
   }
   try {
     const res = await axios.post('/api/orders', orderData)

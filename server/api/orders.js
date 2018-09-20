@@ -4,15 +4,15 @@ module.exports = router
 
 router.post('/', async (req, res, next) => {
   try {
-    const {address, phoneNumber, cart, userId} = req.body
+    const {address, phoneNumber, cart} = req.body
     const orderData = {
       shippingAddress: address,
       phoneNumber,
       items: cart,
-      userId
+      userId: req.user && req.user.id
     }
     const order = await Order.create(orderData, {returning: true})
-    if (userId) {
+    if (req.user) {
       // TODO: Send email
     }
     res.json(order.id)
