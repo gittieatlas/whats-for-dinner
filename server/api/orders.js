@@ -15,7 +15,7 @@ router.post('/', async (req, res, next) => {
     if (req.user) {
       // TODO: Send email
     }
-    res.json(order.id)
+    res.json(order)
   } catch (err) {
     next(err)
   }

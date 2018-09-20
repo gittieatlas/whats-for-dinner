@@ -25,11 +25,10 @@ export const postOrder = () => async (dispatch, getState) => {
     cart
   }
   try {
-    const res = await axios.post('/api/orders', orderData)
+    const {data: order} = await axios.post('/api/orders', orderData)
     dispatch(clearCart())
     dispatch(clearDeliveryInfo())
-    const orderNumber = res.data
-    return orderNumber
+    return order.id
   } catch (err) {
     openSnackbar({message: 'Placing order unsuccessful'})
   }
